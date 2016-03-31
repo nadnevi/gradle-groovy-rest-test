@@ -1,0 +1,36 @@
+plugins {
+    id 'groovy'
+    id 'build-dashboard'
+    id 'project-report'
+    id 'codenarc'
+    id 'jacoco'
+}
+
+repositories {
+    mavenLocal()
+    maven { url "http://mavenrepo.cas.org/nexus/content/groups/development/" }
+}
+
+project.ext {
+    groovyVersion = '2.4.5'
+    spockVersion = '1.0-groovy-2.4'
+}
+
+dependencies {  //<21>
+    //This brings in the Groovy system:
+    compile "org.codehaus.groovy:groovy-all:2.4.5"
+    compile 'org.hidetake:groovy-ssh:1.1.8'
+    //This brings in the Spock Testing Framework for the test stage
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7'
+}
+
+test {
+  testLogging {
+    events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+  }
+}
+
+// codenarcTest {
+//     configFile = rootProject.file("config/codenarc/codenarc.groovy")
+// }
